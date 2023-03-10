@@ -24,17 +24,21 @@ const taskRepository = new FakeTaskRepository()
 // }
 
 function App() {
-    window.TrelloPowerUp.initialize({
-        'card-buttons': (t: Trello.PowerUp.IFrame) => [{
-            icon: "/logo192.png",
-            text: 'Add something',
-            callback: (tc: Trello.PowerUp.IFrame): PromiseLike<void> => {
-                console.log('Button clicked!');
-                return Promise.resolve();
-            }
-        }]
-    });
-    
+    if(window.TrelloPowerUp !== undefined) {
+        window.TrelloPowerUp.initialize({
+            'card-buttons': (t: Trello.PowerUp.IFrame) => [{
+                icon: "/logo192.png",
+                text: 'Add something',
+                callback: (tc: Trello.PowerUp.IFrame): PromiseLike<void> => {
+                    console.log('Button clicked!');
+                    return Promise.resolve();
+                }
+            }]
+        });
+    } else {
+        console.log("alz, error: window.TrelloPowerUp is undefined")
+    }
+
     const items = taskRepository.getTasks()
 
     return (
