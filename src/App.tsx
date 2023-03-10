@@ -9,16 +9,6 @@ import {Trello} from "./types/trello";
 
 const taskRepository = new FakeTaskRepository()
 
-window.TrelloPowerUp.initialize({
-    'card-buttons': (t: Trello.PowerUp.IFrame) => [{
-        icon: "/logo192.png",
-        text: 'Add a Note',
-        callback: (tc: Trello.PowerUp.IFrame): PromiseLike<void> => {
-            console.log('Button clicked!');
-            return Promise.resolve();
-        }
-    }]
-});
 
 //
 // export function getCardButton(_t: Trello.PowerUp.IFrame, props: CapabilityProps): Trello.PowerUp.CardButton[] {
@@ -34,6 +24,17 @@ window.TrelloPowerUp.initialize({
 // }
 
 function App() {
+    window.TrelloPowerUp.initialize({
+        'card-buttons': (t: Trello.PowerUp.IFrame) => [{
+            icon: "/logo192.png",
+            text: 'Add something',
+            callback: (tc: Trello.PowerUp.IFrame): PromiseLike<void> => {
+                console.log('Button clicked!');
+                return Promise.resolve();
+            }
+        }]
+    });
+    
     const items = taskRepository.getTasks()
 
     return (
